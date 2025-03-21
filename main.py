@@ -15,18 +15,18 @@ def init_game ():
     pygame.display.set_caption(config.TITLE)
     return screen
 
-def rec_draw(screen, color, top_l, top_r, low_l, low_r):
-    pygame.draw.rect(screen, color,(top_l,top_r, low_l, low_r))
+def rec_draw(screen, color,tl,tr,ll,lr):
+    pygame.draw.rect(screen, color, (tl,tr,ll,lr))
 
 
-def handle_events ():
+def handle_events (x1,y1):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             return False
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                return x1, y1,x,y, False
-    keys = pygame.key.get_pressed(y1,x1,x,y)
+                return x1, y1, False
+    keys=pygame.key.get_pressed()
     if keys[pygame.K_UP]and y1>0:
         y1 -=10
     if keys[pygame.K_DOWN]and y1<600:
@@ -35,34 +35,26 @@ def handle_events ():
         x1-=10
     if keys[pygame.K_RIGHT] and x1<800:
         x1+=10    
-    if keys[pygame.K_UP]and y>0:
-        y -=10
-    if keys[pygame.K_DOWN]and y<600:
-        y+=10
-    if keys[pygame.K_LEFT]and x>0:
-        x-=10
-    if keys[pygame.K_RIGHT] and x<800:
-        x+=10    
-    return True
+
+    return x1,y1, True
 
 def main():
     
     screen = init_game()
     clock = pygame.time.Clock()
 
-    
-    
-    x1, y1=(420, 320)
-    x, y=(400,300)
-    
+    y1=100
+    x1=100
+
+
     running = True
     while running:
-        y1, x1, x,y,running = handle_events(y1,x1,x,y)
+        x1,y1,running = handle_events(x1,y1)
         screen.fill(config.GRAY) # Use color from config
-        
+
         # Add code to draw stuff (for example) below this comment
 
-        rec_draw(screen, config.BLUE,x1, x, y1,y)
+        rec_draw(screen, config.BLUE,x1,y1,x1,y1)
 
 
 
